@@ -1,3 +1,7 @@
+"""
+Not Ready - Not Working
+"""
+
 user_input = int(input("Type a demical number to convert to binary: "))
 
 def to_binary(n):
