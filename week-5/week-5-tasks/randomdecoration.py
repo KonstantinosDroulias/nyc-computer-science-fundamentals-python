@@ -1,9 +1,12 @@
 import random
 
 def print_characters(ch, n, e):
-     decoration = [ch, '8']
-     for i in range(n):
-          print(random.choice(decoration), end=e)
+    if ch == ' ':
+        decoration = [ch]
+    else:
+        decoration = [ch, '8']
+    for i in range(n):
+        print(random.choice(decoration), end=e)
 
 user_input = int(input("Type a number for the height of the tree: "))
 spaces = user_input // 2
