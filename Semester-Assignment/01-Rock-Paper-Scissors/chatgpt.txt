@@ -1,0 +1,46 @@
+This File containes All my conversetion with chatgpt uppon completing the project
+
+Me Question: How to read a csv and manage it's content in a dictionary using python without using any libraries.
+
+ChatGPT Answer:
+To read a CSV file and manage its content in a dictionary using vanilla Python (without any additional libraries), you can use the built-in open function and string manipulation methods. Here's how to do it:
+
+Example CSV (data.csv):
+csv
+Copy code
+name,age,city
+Alice,30,New York
+Bob,25,Los Angeles
+Charlie,35,Chicago
+Code to Read CSV and Manage as Dictionary
+python
+Copy code
+# Open the file and read the content
+file_name = 'data.csv'
+data = []
+
+with open(file_name, 'r') as file:
+    # Read all lines in the file
+    lines = file.readlines()
+    
+    # Extract headers (first line)
+    headers = lines[0].strip().split(',')
+    
+    # Iterate over the rest of the lines (data rows)
+    for line in lines[1:]:
+        values = line.strip().split(',')
+        row = {headers[i]: values[i] for i in range(len(headers))}
+        data.append(row)
+
+# Print the resulting list of dictionaries
+print(data)
+Output:
+python
+Copy code
+[
+    {'name': 'Alice', 'age': '30', 'city': 'New York'},
+    {'name': 'Bob', 'age': '25', 'city': 'Los Angeles'},
+    {'name': 'Charlie', 'age': '35', 'city': 'Chicago'}
+]
+
+---- //  I TOOK THE ABOVE CODE AND PLACE IT IN THE TEST_CSV_TO_DICTIONARY.PY TO TRY AND FIGURE OUT HOW I CAN HAVE THE USERNAME HAVE IT'S OWN DICTIONARY WITHING THE DICTIONARY  // ----
