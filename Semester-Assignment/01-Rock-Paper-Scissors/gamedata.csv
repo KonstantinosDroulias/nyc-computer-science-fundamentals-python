@@ -1,3 +1,5 @@
-user_name,datetime,user_score,computer_score
-pc,00:00:00,2,3
-kostas,0,5,1
+username,playtime,user_score,computer_score
+pc,43.497809648513794,2,1
+kostas,0,0,0
+K,32.50715684890747,1,2
+Kostas,10.990652799606323,0,1

@@ -22,15 +22,19 @@ Rquirments:
     - 
 """
 import random
-import datetime #Found in w3schools.com/python/python_datetime.asp
+import datetime as dt #Found in w3schools.com/python/python_datetime.asp
+import time as t
 
 #Todo
+datetime_now = dt.datetime.now()
     #Get User name
 username = input("Enter Your Username: ")
     #Open csv and manage it in a dictionarry 
 gamedata = {}
 
-with open('gamedata.csv', 'r') as gd:
+datafile = 'gamedata.csv'
+
+with open(datafile, 'r') as gd:
     lines = gd.readlines()
     headers = lines[0].strip().split(',')
     for line in lines[1:]:   
@@ -46,68 +50,104 @@ with open('gamedata.csv', 'r') as gd:
         
     #If in dictionary
         #grab score to display
-if username in gamedata[usernames]:
-    print(gamedata['user_score'])
+if username in gamedata:
+    print(f"Your current score is {gamedata[username]['user_score']}")
     #esle create new user and give 0 score and computer score
 else:
-    gamedata.append[username,00:00:00,0,0]
-    
+    #ew_user_data = {0,0,0}
+    gamedata[username] = {'playtime': 0, 'user_score' : 0, 'computer_score' : 0}
     
 #Loop till either pc or player reaches 10 wins
 user_score = 0
 pc_score = 0
-weapones = ['Rock', 'Paper', 'Scissors']
-while user_score <= 10 or pc_score <=10:
+weapons = ['Rock', 'Paper', 'Scissors']
+print(gamedata)
+start_time = t.time()
+while user_score < 10 or pc_score < 10:
     #Have user select weapon
-    for index, i in enumerate(weapones):
+    for index, i in enumerate(weapons):
         print(f"{index + 1}. {i}")
-    
-    user_choice = int(input('Type 1-3 to select weaopn: '))
-    user_choice -= 1
+        
+    try:
+        user_choice = int(input('Type 1-3 to select weaopn: ')) - 1
+        """This Code Was give by Chat GPT to help me only with the error handeling when user does not enter 1 - 3"""
+        if user_choice not in range(3):  # Check if the choice is out of range
+            raise ValueError("Invalid choice. Please select a number between 1 and 3.")
+    except ValueError as e:
+        print(e)
+        continue  # Restart the loop if input is invalid
     #Get pc to randomly select
     pc_choice = random.randint(0, 2)
     #Compere with if statement and keep temp_score
+    if user_choice >= 4 or user_choice <= 0:
+        pass
     if user_choice == pc_choice:
-        print(f"You({username}), drawed {weapones[user_choice]} and PC drawed {pc_choice}")
+        print(f"You({username}), drew {weapons[user_choice]} and PC drew {pc_choice}")
         print(f"Intresting... It's a DRAW.")
         
         #Compare 01
-    elif weapones[user_choice] == 'Rock':
-        if weapones[pc_choice] == 'Paper':
-            print(f"You({username}), drawed {weapones[user_choice]} and PC drawed {pc_choice}")
+    elif weapons[user_choice] == 'Rock':
+        if weapons[pc_choice] == 'Paper':
+            print(f"You({username}), drew {weapons[user_choice]} and PC drew {pc_choice}")
             print(f"Whooops... Paper is stronger than rock. PC won +1 point")
             pc_score += 1
         
-        elif weapones[pc_choice] == 'Scissors':
-            print(f"You({username}), drawed {weapones[user_choice]} and PC drawed {pc_choice}")
+        elif weapons[pc_choice] == 'Scissors':
+            print(f"You({username}), drew {weapons[user_choice]} and PC drew {pc_choice}")
             print(f"Awesome. Rock is stronger than rock you won +1 point")
             user_score += 1
             
     #Compare 02
-    elif weapones[user_choice] == 'Paper':
-        if weapones[pc_choice] == 'Scissors':
-            print(f"You({username}), drawed {weapones[user_choice]} and PC drawed {pc_choice}")
+    elif weapons[user_choice] == 'Paper':
+        if weapons[pc_choice] == 'Scissors':
+            print(f"You({username}), drew {weapons[user_choice]} and PC drew {pc_choice}")
             print(f"Whooops... Paper is stronger than rock. PC won +1 point")
             pc_score += 1
         
-        elif weapones[pc_choice] == 'Rock':
-            print(f"You({username}), drawed {weapones[user_choice]} and PC drawed {pc_choice}")
+        elif weapons[pc_choice] == 'Rock':
+            print(f"You({username}), drew {weapons[user_choice]} and PC drew {pc_choice}")
             print(f"Awesome. Rock is stronger than rock you won +1 point")
             user_score += 1
         
     #Compare 03
-    elif weapones[user_choice] == 'Scissors':
-        if weapones[pc_choice] == 'Paper':
-            print(f"You({username}), drawed {weapones[user_choice]} and PC drawed {pc_choice}")
+    elif weapons[user_choice] == 'Scissors':
+        if weapons[pc_choice] == 'Paper':
+            print(f"You({username}), drew {weapons[user_choice]} and PC drew {pc_choice}")
             print(f"Whooops... Paper is stronger than rock. PC won +1 point")
             pc_score += 1
         
-        elif weapones[pc_choice] == 'Rock':
-            print(f"You({username}), drawed {weapones[user_choice]} and PC drawed {pc_choice}")
+        elif weapons[pc_choice] == 'Rock':
+            print(f"You({username}), drew {weapons[user_choice]} and PC drew {pc_choice}")
             print(f"Awesome. Rock is stronger than rock you won +1 point")
             user_score += 1
 
-#Update score with 10 points
+end_time = t.time()
 
+elapsed_time = end_time - start_time
+#Update score with 10 points
+if user_score == 10:
+    print("You are an excelent player, Good Job you've won")
+    gamedata[username]['user_score'] = str(int(gamedata[username]['user_score']) + 1) # This line was generated by chatgpt
+    gamedata[username]['playtime'] = str(float(gamedata[username]['playtime']) + elapsed_time)
+    gamedata['pc']['computer_score'] = str(int(gamedata['pc']['user_score']) + 1) # Here I add number for each loss pc gets.
+    gamedata['pc']['playtime'] = str(float(gamedata['pc']['playtime']) + elapsed_time)
+elif pc_score == 10:
+    print("Better luck next time ;)")
+    gamedata[username]['computer_score'] = str(int(gamedata[username]['user_score']) + 1) # This line was generated by chatgpt
+    gamedata[username]['playtime'] = str(float(gamedata[username]['playtime']) + elapsed_time)
+    gamedata['pc']['user_score'] = str(int(gamedata['pc']['user_score']) + 1) # Here I also track how many wins he has with all the playes
+    gamedata['pc']['playtime'] = str(float(gamedata['pc']['playtime']) + elapsed_time)
+
+
+print(gamedata)
+with open(datafile, "w") as file:
+    file.write("username,playtime,user_score,computer_score\n")
     
-    
+    for username, stats in gamedata.items():
+        playtime = stats['playtime']
+        user_score = stats['user_score']
+        computer_score = stats['computer_score']
+        
+        line = f"{username},{playtime},{user_score},{computer_score}\n"
+        
+        file.write(line)
