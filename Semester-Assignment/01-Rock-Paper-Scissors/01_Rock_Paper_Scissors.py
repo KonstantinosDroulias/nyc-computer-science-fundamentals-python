@@ -16,10 +16,6 @@ Rquirments:
         - user_score
         - computer_score
         - win_rate
-- Extra -//- Not Needed for the assigment
-    - Gui app
-    - Exit Button // Notify user score won't be updated if he leaves too soon
-    - 
 """
 import random
 import datetime as dt #Found in w3schools.com/python/python_datetime.asp

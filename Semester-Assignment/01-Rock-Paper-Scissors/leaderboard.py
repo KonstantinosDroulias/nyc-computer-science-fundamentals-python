@@ -27,7 +27,7 @@ for i in gamedata:
     loses =int(gamedata[i]['computer_score'])
     # I set each win to be worth 100 points
     if wins != 0:
-        score = wins * 100 + wins/(wins + loses) * wins
+        score = wins * 100 + wins/(wins + loses) * wins #Score is win points * 
         scoredata[i] = score
     else: 
         scoredata[i] = 0
