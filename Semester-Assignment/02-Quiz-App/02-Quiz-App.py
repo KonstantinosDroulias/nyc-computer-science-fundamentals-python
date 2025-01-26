@@ -88,7 +88,7 @@ for i, question in enumerate(questions):
         options = []
         options = question['incorrect_answers'] + [question['correct_answer']]
         random.shuffle(options)
-        print(question['correct_answer']) # // Only to for testing purpose
+        #print(question['correct_answer']) # // Only to for testing purpose
         for j, option in enumerate(options):
             print(f"{j + 1}. {html.unescape(option)}")
             
