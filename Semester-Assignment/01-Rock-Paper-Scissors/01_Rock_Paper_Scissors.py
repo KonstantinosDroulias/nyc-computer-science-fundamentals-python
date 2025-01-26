@@ -57,7 +57,6 @@ else:
 user_score = 0
 pc_score = 0
 weapons = ['Rock', 'Paper', 'Scissors']
-print(gamedata)
 start_time = t.time()
 while user_score < 10 or pc_score < 10:
     #Have user select weapon
@@ -135,7 +134,6 @@ elif pc_score == 10:
     gamedata['pc']['playtime'] = str(float(gamedata['pc']['playtime']) + elapsed_time)
 
 
-print(gamedata)
 with open(datafile, "w") as file:
     file.write("username,playtime,user_score,computer_score\n")
     
