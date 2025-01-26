@@ -13,6 +13,7 @@ Quiz:
 
 import requests
 import json
+import html
 import random
 
 datafile = 'gamedata.csv'
@@ -34,7 +35,7 @@ with open(datafile, 'r') as gd:
                  
             gamedata[usernames] = data
               
-print(data, gamedata)
+#print(data, gamedata)
 #User Login            
 user_account_state = input("'Log In' or 'Create Account': ")
 user_account_state = user_account_state.lower().replace(" ", "")
@@ -81,25 +82,28 @@ api_data = response.json()
 questions = api_data['results']
 
 for i, question in enumerate(questions):
-        print(f"Question {i + 1}: {question['question']}")
+        clean_question = html.unescape(question['question'])
+        print(f"Question {i + 1}: {clean_question}")
         print("Choices:")
         options = []
         options = question['incorrect_answers'] + [question['correct_answer']]
         random.shuffle(options)
-        print(options)
+        print(question['correct_answer']) # // Only to for testing purpose
         for j, option in enumerate(options):
-            print(f"{j + 1}. {option}")
+            print(f"{j + 1}. {html.unescape(option)}")
             
         answer = int(input('Type the number with the answer you want to choose: '))
-        
-        if options[int(answer) - 1] == question['correct_answer']:
-            print("Brilliant, your answer was correct!")
-            # Convert win_score to int and increment
-            gamedata[username]['win_score'] = int(gamedata[username].get('win_score', 0)) + 1
-        else:
-            print(f"Your answer was incorrect. The correct answer was {question['correct_answer']}\nBetter luck next time!")
-            # Convert lose_score to int and increment
-            gamedata[username]['lose_score'] = int(gamedata[username].get('lose_score', 0)) + 1
+        try:
+            if options[int(answer) - 1] == question['correct_answer']:
+                print("Brilliant, your answer was correct!")
+                # Convert win_score to int and increment
+                gamedata[username]['win_score'] = int(gamedata[username].get('win_score', 0)) + 1
+            else:
+                print(f"Your answer was incorrect. The correct answer was {question['correct_answer']}\nBetter luck next time!")
+                # Convert lose_score to int and increment
+                gamedata[username]['lose_score'] = int(gamedata[username].get('lose_score', 0)) + 1
+        except (ValueError, IndexError):
+            print("Answer you've slected does not exist")
 
 with open(datafile, "w") as file:
     file.write("username,password,win_score,lose_score\n")
