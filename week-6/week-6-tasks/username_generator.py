@@ -1,4 +1,4 @@
-"""I throught my code in chatgpt after not being able to get the extra number at the end and spit out a code that was much smarter than mine so I wanted to keep it here"""
+"""I throught my code in chatgpt after not being able to get the extra number at the end and get code that was much smarter than mine so I wanted to keep it here"""
 
 students = ['John Doe', 'Mary Smith', 'Andrew Green', 'Lisa Tomas',
             'Mike Smith', 'Alex Green']

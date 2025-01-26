@@ -33,19 +33,7 @@ for i in gamedata:
         scoredata[i] = 0
 
 
-items = list(scoredata.items())
+sorted_scoredata = dict(sorted(scoredata.items(), key=lambda x: x[1], reverse=True))
 
-n = len(items)
-for i in range(n):
-    for j in range(0, n - i - 1):
-        # Compare values
-        if items[j][1] < items[j + 1][1]:  # Descending order
-            # Swap the items
-            items[j], items[j + 1] = items[j + 1], items[j]
-
-# Convert the sorted list back to a dictionary
-sorted_scoredata = dict(items)
-
-# Print the result
-for index, i in enumerate(sorted_scoredata):
-    print(f"{index + 1} - {i} : {sorted_scoredata[i]}")
+for index, (user, score) in enumerate(sorted_scoredata.items(), start=1):
+    print(f"{index} - {user} : {score}")

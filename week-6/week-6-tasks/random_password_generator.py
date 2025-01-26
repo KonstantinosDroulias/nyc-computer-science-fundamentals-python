@@ -1,6 +1,6 @@
 import FreeSimpleGUI as sg #This is a library I was taught from a course // Still used help form chat gpt
 import random as rd
-sg.theme('Default') # can change themes here https://docs.pysimplegui.com/en/latest/documentation/module/themes/
+sg.theme('DarkBlue9') # can change themes here https://docs.pysimplegui.com/en/latest/documentation/module/themes/
 """use four lists, lower_case_letters, upper_case_letters, digits, special_characters,
 and randomly select a list and then randomly characters from the list."""
 

@@ -5,7 +5,7 @@ file = open('story.txt', 'r')
 
 count = 0
 for line in file:
-    print(line)
+    #print(line)
     line = line.strip().lower()
     
     if word == line:
